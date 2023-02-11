@@ -1,0 +1,23 @@
+.name{
+    background-color: rgba(204, 21, 21, 0.609);
+    padding: 5px;
+}
+.mainBox{
+    display: flex;
+    justify-content: space-between;
+}
+.secondBox button{
+    box-sizing: border-box;
+    margin: 10px 0px;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.88);
+    color: white;
+    border-radius: 30px;
+    border: 0;
+    box-shadow: inset 0px 0px 5px white;
+}
+.secondBox button:last-child{
+    background-color: red;
+    margin-top: 50px;
+}
