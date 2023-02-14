@@ -10,11 +10,12 @@ function Home() {
                 <div className="buttons">
                     <NavLink className="btn btn-danger" role="button" to='/register'>Open New Account</NavLink>
                     <div>
-                    <span style={{color: "blue"}}>If you have ATM CARD!</span>
-                    <NavLink className="btn btn-primary" role="button" to='/insertCard'>Insret Card Here !</NavLink>
+                        <span style={{ color: "blue" }}>If you have ATM CARD!</span>
+                        <NavLink className="btn btn-primary" role="button" to='/insertCard'>Insret Card Here !</NavLink>
                     </div>
                 </div>
             </div>
+            <NavLink className="btn btn-dark mx-5" id='admin' role="button" to='/admin'>Admin Login</NavLink>
         </>
     )
 }

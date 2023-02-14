@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "", adharNumber: "", password: ""
   });
@@ -12,22 +12,28 @@ const Register = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const sendData=async(e)=>{
+  const sendData = async (e) => {
     e.preventDefault();
-    const {name, adharNumber, password}= userData;
-    const res= await fetch("/register",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify({name, adharNumber, password})
-    });
-    const data= await res.json();
-    if(res.status===422 || !data){
-      alert("enter correct details");
-    }else{
-      alert("Account Succesfully created !")
-      navigate("/login");
+    const { name, adharNumber, password } = userData;
+
+    if (adharNumber.length > 12 || adharNumber.length < 12) {
+      alert("Enter correct 12-digit adhar Number");
+    } else {
+
+      const res = await fetch("/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, adharNumber, password })
+      });
+      const data = await res.json();
+      if (res.status === 422 || !data) {
+        alert("enter correct details");
+      } else {
+        alert("Account Succesfully created !")
+        navigate("/login");
+      }
     }
 
   };

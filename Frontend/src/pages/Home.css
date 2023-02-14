@@ -26,3 +26,17 @@
  
     
 }
+
+#admin{
+    float: right;
+    position: relative;
+    bottom: 2rem;
+}
+
+table{
+    
+    border-collapse: separate;
+}
+table thead td{
+ border: 2px;   
+}

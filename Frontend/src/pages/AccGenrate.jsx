@@ -6,42 +6,43 @@ const AccGenrate = () => {
 
     const [pin, setPin] = useState("");
 
-    const [userData, setUserData]= useState({});
+    const [userData, setUserData] = useState({});
 
     const generatePin = async (e) => {
         e.preventDefault();
         if (pin.length > 4 || pin.length < 4) {
             alert("enter only 4-digit pin");
-        }
-        const res = await fetch("/setPin", {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({pin})
-        })
-        const data = await res.json();
-        if (!data || res.status === 422) {
-            alert("enter details !")
         } else {
-            alert("ATM pin succesfully created!");
-            Navigate("/");
-            alert("please insert your card to use services");
+            const res = await fetch("/setPin", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ pin })
+            })
+            const data = await res.json();
+            if (!data || res.status === 422) {
+                alert("enter details !")
+            } else {
+                alert("ATM pin succesfully created!");
+                Navigate("/");
+                alert("please insert your card to use services");
+            }
         }
     };
-    const getData= async ()=>{
-        const res= await fetch("/userData", {
-            method:"get",
-            headers:{
-                "Content-type":"application/json"
+    const getData = async () => {
+        const res = await fetch("/userData", {
+            method: "get",
+            headers: {
+                "Content-type": "application/json"
             }
         });
-        const data= await res.json();
+        const data = await res.json();
         setUserData(data);
     }
-    useEffect(()=>{
+    useEffect(() => {
         getData();
-    },[])
+    }, [])
 
     return (<>
         <div className="box container">

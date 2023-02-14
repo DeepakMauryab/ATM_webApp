@@ -3,8 +3,10 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 
 const authentication = require("../auth/authentication");
+const adminAuth = require("../auth/authentication");
 
 const collection = require("../database/model");
+const Admin = require("../database/adminModel");
 
 
 router.post("/register", async (req, res) => {
@@ -96,7 +98,7 @@ router.post("/withdraw", authentication, async (req, res) => {
 // balance check karne ke liye function
 router.post("/checkBalance", authentication, async (req, res) => {
     try {
-        const data = await collection.findOne({ atmPin: req.body.pin });
+        const data = req.userData;
         res.send({ balance: data.balance });
     } catch (error) {
         res.status(422).json({ error: "some error not withdraw money" });
@@ -188,5 +190,59 @@ router.get("/cancle", authentication, async (req, res) => {
 router.get("/userData", authentication, (req, res) => {
     res.send(req.userData);
 })
+
+
+// admin section
+// admin login
+router.post("/adminlogin", async (req, res) => {
+    const { registrationNumber, password } = req.body;
+    try {
+        if (!registrationNumber, !password) {
+            res.status(406).json({ error: "enter all details" })
+        } else {
+
+            const data = await Admin.findOne({ registrationNumber: registrationNumber });
+            const match = await bcrypt.compare(password, data.password);
+            if (match) {
+                const token = await data.authSystem();
+                res.cookie("admintoken", token,
+                    {
+                        expires: new Date(Date.now() + (24 * 60 * 60 * 1000))
+                    }
+                );
+                res.status(201).json({ message: "admin Login succesfully" });
+            } else {
+                res.status(406).json({ message: "Wrong Password" });
+
+            }
+        }
+    } catch (error) {
+        res.status(422).json({ error: "admin login failed" });
+    }
+});
+
+router.get("/users", adminAuth, async (req, res) => {
+    try {
+        const admin = req.adminData;
+        if (admin) {
+            const data = await collection.find();
+            res.send(data);
+        } else {
+            res.status(422).json({ error: "admin not available" });
+        }
+    } catch (error) {
+        res.status(422).json({ error: "admin not login" });
+    }
+});
+router.get("/logout", adminAuth, async (req, res) => {
+    try {
+        req.adminData.tokens = [];
+        await req.adminData.save();
+        res.clearCookie("admintoken", { path: "/" });
+        res.status(200).send("admin logout");
+    } catch (err) {
+        res.status(422).json({ error: " admin not loged" });
+    }
+});
 
 module.exports = router;
