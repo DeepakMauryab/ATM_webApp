@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 
-const authentication = require("../auth/authentication");
-const adminAuth = require("../auth/authentication");
+const { authentication, adminAuth } = require("../auth/authentication");
 
 const collection = require("../database/model");
 const Admin = require("../database/adminModel");
@@ -39,7 +38,7 @@ router.post("/login", async (req, res) => {
                 const token = await data.generateAuthToken();
                 res.cookie("atmdata", token,
                     {
-                        expires: new Date(Date.now() + (20000))
+                        expires: new Date(Date.now() + ((10000)))
                     }
                 );
                 res.status(201).json({ message: "user Login succesfully" });
@@ -244,5 +243,29 @@ router.get("/logout", adminAuth, async (req, res) => {
         res.status(422).json({ error: " admin not loged" });
     }
 });
+
+router.post("/editData", async (req, res) => {
+    try {
+        const { name, accountNumber, adharNumber } = req.body;
+        const data = await collection.findOne({ _id: req.body._id });
+        data.name = name;
+        data.accountNumber = accountNumber;
+        data.adharNumber = adharNumber;
+        await data.save();
+        res.status(201).json({ message: "data selected succesfully" });
+    } catch (error) {
+        res.status(422).json({ error: "not selected data" });
+    }
+})
+
+router.post("/deleteData", async (req, res) => {
+    try {
+        const data = await collection.deleteOne({ _id: req.body.deleteId });
+        res.status(201).json({ message: "data delete succesfully" });
+
+    } catch (error) {
+        res.status(422).json({ error: "not deleted" });
+    }
+})
 
 module.exports = router;

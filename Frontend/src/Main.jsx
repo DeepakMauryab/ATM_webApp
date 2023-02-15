@@ -7,9 +7,10 @@ import Login from './pages/Login';
 import MyAccount from './MyAccount/MyAccount';
 import AccGenrate from './pages/AccGenrate';
 import CardInsert from './pages/CardInsert';
-import Admin from './pages/Admin';
-import AdminBlock from './pages/AdminBlock';
-import AdminLogout from './pages/AdminLogout';
+import Admin from './admin/Admin';
+import AdminBlock from './admin/AdminBlock';
+import AdminLogout from './admin/AdminLogout';
+import UpdateUser from './admin/UpdateUser';
 
 
 
@@ -30,6 +31,7 @@ function Main() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/AdminBlock" element={<AdminBlock />} />
         <Route path="/AdminOut" element={<AdminLogout />} />
+        <Route path="/updateusers" element={<UpdateUser />} />
       </Routes>
     </>
   )
