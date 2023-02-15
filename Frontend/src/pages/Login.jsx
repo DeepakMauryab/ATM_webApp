@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
+import { UserContext } from "../App";
 
 const Login = () => {
+
+  // authentication section for navbar buttons
+  const { dispatch } = useContext(UserContext);
+
+
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     adharNumber: "", password: ""
@@ -30,6 +36,7 @@ const Login = () => {
       alert("wrong Password");
     } else {
       alert("login succesfully!")
+      dispatch({ type: "user", payload: false });
       navigate("/pingenerate");
     }
   };

@@ -1,7 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
+import {UserContext} from "../App";
+
 const Register = () => {
+
+  // authentication section for navbar buttons
+  const { dispatch } = useContext(UserContext);
+
+
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "", adharNumber: "", password: ""
@@ -32,6 +39,7 @@ const Register = () => {
         alert("enter correct details");
       } else {
         alert("Account Succesfully created !")
+        dispatch({ type: "user", payload: false })
         navigate("/login");
       }
     }

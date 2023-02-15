@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+
+import { UserContext } from "../App";
 
 const AdminLogout = () => {
+
+    // authentication section for navbar buttons
+    const { dispatch } = useContext(UserContext);
+
     const navigate = useNavigate();
     const adminSessionLogout = async () => {
         try {
@@ -18,7 +24,8 @@ const AdminLogout = () => {
                 // alert("not logout");
                 navigate("/");
             }
-            navigate("/admin");
+            dispatch({ type: "user", payload: true })
+            navigate("/");
         } catch (error) {
         }
     }

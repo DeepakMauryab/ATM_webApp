@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
+import { UserContext } from '../App';
 
 const Admin = () => {
+
+  // authentication section for navbar buttons
+  const { dispatch } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     registrationNumber: "", password: ""
@@ -30,6 +35,7 @@ const Admin = () => {
       alert("wrong Password");
     } else {
       alert("login succesfully!")
+      dispatch({ type: "user", payload: false })
       navigate("/AdminBlock");
     }
   };

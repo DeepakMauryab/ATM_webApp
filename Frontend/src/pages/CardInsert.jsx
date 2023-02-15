@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { UserContext } from "../App";
+
 const CardInsert = () => {
+    // authentication section for navbar buttons
+    const { dispatch } = useContext(UserContext);
 
     const Navigate = useNavigate();
 
@@ -32,6 +36,7 @@ const CardInsert = () => {
         } else {
             alert("Welcome to Your Bank!");
             Navigate("/myAccount");
+            dispatch({type: "user", payload: false});
         }
     }
 

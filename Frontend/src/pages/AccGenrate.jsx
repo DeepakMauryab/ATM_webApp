@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { UserContext } from "../App";
+
 const AccGenrate = () => {
+
+    // authentication section for navbar buttons
+    const { dispatch } = useContext(UserContext);
+
     const Navigate = useNavigate();
 
     const [pin, setPin] = useState("");
@@ -26,6 +32,7 @@ const AccGenrate = () => {
             } else {
                 alert("ATM pin succesfully created!");
                 Navigate("/");
+                dispatch({ type: "user", payload: true });
                 alert("please insert your card to use services");
             }
         }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import "./account.css";
 import Deposit from './functions/Deposit';
 import Transfer from './functions/Transfer';
@@ -7,7 +7,10 @@ import CheckBalance from './functions/CheckBalance';
 import Cancle from './functions/Cancle';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const MyAccount = () => {
+
 
   const Navigate = useNavigate();
   const [user, setUser] = useState("");

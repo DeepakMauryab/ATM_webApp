@@ -85,13 +85,13 @@ return (
                         user.map((ele, ind) => {
                             return (
                                 <tr className='table-light' key={ind}>
-                                    <td>{ind}</td>
+                                    <td className='fw-bold text-primary'>{ind}</td>
                                     <td>{ele.accountNumber}</td>
                                     <td>{ele.name}</td>
                                     <td>{ele.adharNumber}</td>
-                                    <td>{ele.balance}</td>
-                                    <td className='text-center'><button onClick={() => setEditId(ele._id)}>Edit</button></td>
-                                    <td className='text-center'><button onClick={() => setDeleteId(ele._id)}>Delete</button></td>
+                                    <td><i class="fa fa-indian-rupee-sign text-info"></i> {ele.balance}</td>
+                                    <td className='text-center'><button style={{color: "#02fa49"}} onClick={() => setEditId(ele._id)}><i className="fa-solid fa-pen-to-square"></i></button></td>
+                                    <td className='text-center'><button style={{color: "#eb1a1a"}} onClick={() => setDeleteId(ele._id)}><i className="fa-solid fa-trash-can"></i></button></td>
                                 </tr>
                             );
                         })
