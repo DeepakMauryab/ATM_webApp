@@ -19,6 +19,9 @@ const App = () => {
             dispatch({ type: "user", payload: data });
         }
     }, []);
+    setTimeout(()=>{
+        localStorage.clear();
+    },60*60*1000);
     return (
         <>
             <UserContext.Provider value={{ state, dispatch }}>

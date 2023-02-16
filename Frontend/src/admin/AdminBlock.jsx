@@ -85,7 +85,7 @@ return (
                         user.map((ele, ind) => {
                             return (
                                 <tr className='table-light' key={ind}>
-                                    <td className='fw-bold text-primary'>{ind}</td>
+                                    <td className='fw-bold text-primary'>{ind+1}</td>
                                     <td>{ele.accountNumber}</td>
                                     <td>{ele.name}</td>
                                     <td>{ele.adharNumber}</td>
