@@ -11,7 +11,7 @@ const Admin = require("../database/adminModel");
 router.post("/register", async (req, res) => {
     const { name, adharNumber, password } = req.body;
     try {
-        if (!name, !adharNumber, !password) {
+        if (!name && !adharNumber && !password) {
             res.status(406).json({ error: "enter all details" })
         } else {
             await collection.create({ name, adharNumber, password });
@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     const { adharNumber, password } = req.body;
     try {
-        if (!adharNumber, !password) {
+        if (!adharNumber && !password) {
             res.status(406).json({ error: "enter all details" })
         } else {
 
@@ -246,11 +246,12 @@ router.get("/logout", adminAuth, async (req, res) => {
 
 router.post("/editData", async (req, res) => {
     try {
-        const { name, accountNumber, adharNumber } = req.body;
+        const { name, accountNumber, adharNumber,balance } = req.body;
         const data = await collection.findOne({ _id: req.body._id });
         data.name = name;
         data.accountNumber = accountNumber;
         data.adharNumber = adharNumber;
+        data.balance= balance;
         await data.save();
         res.status(201).json({ message: "data selected succesfully" });
     } catch (error) {

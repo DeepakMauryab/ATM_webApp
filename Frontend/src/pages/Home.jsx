@@ -15,7 +15,8 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <NavLink className="btn btn-dark mx-5" id='admin' role="button" to='/admin'>Admin Login</NavLink>
+            <NavLink className="btn btn-dark mx-5 float-end" id='admin' role="button" to='/admin'>Admin Login</NavLink>
+            <NavLink className="mx-5 float-start fs-5" id='admin' role="button" to='/login'>Create ATM Pin If you have register !</NavLink>
         </>
     )
 }

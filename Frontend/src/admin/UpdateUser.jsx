@@ -8,7 +8,9 @@ const UpdateUser = () => {
     // useLocation used to access data from parent usenavigation
     const { state } = useLocation();
     const [data, setData] = useState({
-        name: "", accountNumber: "", adharNumber: ""
+        name: "", accountNumber: "", adharNumber: "" ,
+        balance:""
+        
     });
     useEffect(() => {
         for (let user of state.user) {
@@ -26,7 +28,7 @@ const UpdateUser = () => {
 
     const sendUpdateData = async (e) => {
         e.preventDefault();
-        const { _id, name, accountNumber, adharNumber } = data;
+        const { _id, name, accountNumber, adharNumber, balance } = data;
 
         if (adharNumber.length > 12 || adharNumber.length < 12) {
             alert("Enter correct 12-digit adhar Number");
@@ -37,7 +39,7 @@ const UpdateUser = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ _id, name, accountNumber, adharNumber })
+                body: JSON.stringify({ _id, name, accountNumber, adharNumber, balance })
             });
             const data = await res.json();
             if (res.status === 422 || !data) {
@@ -61,12 +63,16 @@ const UpdateUser = () => {
                                 <input type="text" className="form-control" id="exampleInputtext1" aria-describedby="emailHelp" name="name" onChange={inputData} value={data.name} />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="exampleInputEmail1" className="form-label">Account Number:</label>
-                                <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="accountNumber" onChange={inputData} value={data.accountNumber} />
+                                <label htmlFor="AccountNumber" className="form-label">Account Number:</label>
+                                <input type="number" className="form-control" id="AccountNumber" aria-describedby="emailHelp" name="accountNumber" onChange={inputData} value={data.accountNumber} />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="exampleInputEmail1" className="form-label">Adhar Number:</label>
-                                <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="adharNumber" onChange={inputData} value={data.adharNumber} />
+                                <label htmlFor="AdharNumber" className="form-label">Adhar Number:</label>
+                                <input type="number" className="form-control" id="AdharNumber" aria-describedby="emailHelp" name="adharNumber" onChange={inputData} value={data.adharNumber} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="balance" className="form-label">Balance:</label>
+                                <input type="number" className="form-control" id="balance" aria-describedby="emailHelp" name="balance" onChange={inputData} value={data.balance} />
                             </div>
 
                             <button type="submit" className="btn btn-primary" onClick={sendUpdateData}>Update Account Data</button>
